@@ -7,7 +7,6 @@ self.addEventListener('install', e => {
             return cache.addAll([
                 '/',
                 '/index.html',
-                '/static/js/bundle.js'
             ]).then(() => self.skipWaiting())
         })
     )
