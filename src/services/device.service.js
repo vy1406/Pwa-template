@@ -1,3 +1,4 @@
+// https://blog.logrocket.com/how-to-create-video-audio-recorder-react/
 
 const getCameraPermission = async (onSuccess, onError) => {
     if ("MediaRecorder" in window) {
