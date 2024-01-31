@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { CachingService } from '../../services/caching.service';
 
 const postForm = async (formData) => {
     try {
@@ -34,11 +35,11 @@ const MyForm = () => {
     e.preventDefault();
     console.log(formData);
     if (navigator.onLine) {
-        // Send data to the server
+        console.log("ONLINE");
         await postForm(formData);
       } else {
-        // Save data to cache (e.g., IndexedDB, localStorage)
-        await saveDataForLater(formData);
+        console.log("OFFLINE");        
+        await CachingService.save(formData);
       }
   };
 
