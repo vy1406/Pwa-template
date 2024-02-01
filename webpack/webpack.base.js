@@ -43,6 +43,7 @@ module.exports = {
     }),
     new Dotenv({
       path: `.env.${environment}`,
+      systemvars: true
     }),
     new InjectManifest({
       swSrc: '../public/sw.js',
