@@ -6,12 +6,6 @@ module.exports = merge(baseConfig, {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
-    // Development server config
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html'
-    }),
-    // Other development-specific plugins
-  ]
+    historyApiFallback: true
+  }
 });
