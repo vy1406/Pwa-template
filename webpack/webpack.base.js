@@ -1,7 +1,7 @@
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const { GenerateSW, InjectManifest } = require('workbox-webpack-plugin');
 const environment = process.env.NODE_ENV || 'development';
 
 module.exports = {
@@ -28,10 +28,16 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: './public/index.html'
     }),
     new Dotenv({
         path: `.env.${environment}`,
-    })
+    }),
+    new InjectManifest({
+      swSrc: './public/sw.js',
+      swDest: 'service-worker.js',
+      
+      maximumFileSizeToCacheInBytes: 5000000,
+    }),
   ]
 };
