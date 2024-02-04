@@ -49,6 +49,7 @@ module.exports = {
         { from: "../src/logo512.png", to: ""}, 
       ]
     }),
+    // both added in dev and prod. but should not. will leave it right now like this.
     new InjectManifest({
       swSrc: '../src/src-sw.js',
       swDest: 'sw.js',

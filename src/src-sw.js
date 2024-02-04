@@ -16,50 +16,66 @@ const staticCacheName = 'static-resources'
 const maxAgeSeconds = 60 * 60 * 24 * 365;
 const maxEntries = 30;
 const thirtyDays = 30 * 24 * 60 * 60;
+const pokemonCacheName = "pokemon-api-response"
 
 registerRoute(
-  ({url}) => url.origin === 'https://fonts.googleapis.com',
-  new StaleWhileRevalidate({
-    cacheName: sheetCacheName,
-  })
+    ({ url }) => url.origin === 'https://fonts.googleapis.com',
+    new StaleWhileRevalidate({
+        cacheName: sheetCacheName,
+    })
 );
 
 // Cache the underlying font files with a cache-first strategy for 1 year.
 registerRoute(
-  ({url}) => url.origin === 'https://fonts.gstatic.com',
-  new CacheFirst({
-    cacheName: fontCacheName,
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-      new ExpirationPlugin({
-        maxAgeSeconds,
-        maxEntries,
-      }),
-    ],
-  })
+    ({ url }) => url.origin === 'https://fonts.gstatic.com',
+    new CacheFirst({
+        cacheName: fontCacheName,
+        plugins: [
+            new CacheableResponsePlugin({
+                statuses: [0, 200],
+            }),
+            new ExpirationPlugin({
+                maxAgeSeconds,
+                maxEntries,
+            }),
+        ],
+    })
 );
 
 registerRoute(
-    ({request}) => request.destination === 'image',
+    ({ request }) => request.destination === 'image',
     new CacheFirst({
-      cacheName: imagesCacheName,
-      plugins: [
-        new CacheableResponsePlugin({
-          statuses: [0, 200],
-        }),
-        new ExpirationPlugin({
-          maxEntries: 60,
-          maxAgeSeconds: thirtyDays,
-        }),
-      ],
+        cacheName: imagesCacheName,
+        plugins: [
+            new CacheableResponsePlugin({
+                statuses: [0, 200],
+            }),
+            new ExpirationPlugin({
+                maxEntries: 60,
+                maxAgeSeconds: thirtyDays,
+            }),
+        ],
     })
-  );
+);
 
 registerRoute(
-    ({request}) => request.destination === "script" || request.destination === "style",
+    ({ request }) => request.destination === "script" || request.destination === "style",
     new StaleWhileRevalidate({
         cacheName: staticCacheName
+    })
+)
+
+registerRoute(
+    ({ url }) => url.origin === "http://localhost:8081" || url.pathname === '/pokemons',
+    new StaleWhileRevalidate({
+        cacheName: pokemonCacheName,
+        plugins: [
+            new CacheableResponsePlugin({
+                statuses: [0, 200],
+            }),
+            new ExpirationPlugin({
+                maxEntries: 1,
+            }),
+        ]
     })
 )
