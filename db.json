@@ -6,5 +6,19 @@
         "name": "asdasd"
       }
     }
+  ],
+  "pokemons": [
+    {
+      "id": "1",
+      "name": "bulbasaur",
+      "overview": "earth",
+      "url": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/568.png"
+    },
+    {
+      "id": "2",
+      "name": "squirtle",
+      "overview": "water",
+      "url": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/479_f3.png"
+    }
   ]
 }

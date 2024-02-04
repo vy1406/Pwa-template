@@ -1,17 +1,17 @@
 const { merge } = require('webpack-merge');
 const baseConfig = require('./webpack.base.js');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = merge(baseConfig, {
-  mode: 'prod',
+  mode: 'production',
   devtool: 'inline-source-map',
   devServer: {
     // Development server config
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html'
+    new Dotenv({
+      path: `.env.dev`,
+      systemvars: true
     }),
-    // Other development-specific plugins
   ]
 });
