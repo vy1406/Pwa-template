@@ -10,7 +10,7 @@ const Movies = () => {
     useEffect(() => {
         setIsLoading(true);
     
-        axios.get(`http://localhost:3000/pokemons`, {
+        axios.get(`http://localhost:8081/pokemons`, {
   
         })
           .then( (response) => {

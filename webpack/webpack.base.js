@@ -1,8 +1,8 @@
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { GenerateSW, InjectManifest } = require('workbox-webpack-plugin');
-const environment = process.env.NODE_ENV || 'development';
+const { InjectManifest } = require('workbox-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   context: __dirname,
@@ -41,13 +41,17 @@ module.exports = {
       template: path.resolve(__dirname, '../public/index.html'),
       filename: 'index.html'
     }),
-    new Dotenv({
-      path: `.env.${environment}`,
-      systemvars: true
+    new CopyPlugin({
+      patterns: [
+        { from: "../src/favicon.ico", to: ""}, 
+        { from: "../src/manifest.json", to: ""}, 
+        { from: "../src/logo192.png", to: ""}, 
+        { from: "../src/logo512.png", to: ""}, 
+      ]
     }),
     new InjectManifest({
-      swSrc: '../public/sw.js',
-      swDest: 'service-worker.js',
+      swSrc: '../src/src-sw.js',
+      swDest: 'sw.js',
 
       maximumFileSizeToCacheInBytes: 5000000,
     }),
