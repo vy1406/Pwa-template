@@ -14,6 +14,6 @@ export default function registerServiceWorker() {
             }
         })
    
-        wp.register()
+        wb.register()
     }
 }
